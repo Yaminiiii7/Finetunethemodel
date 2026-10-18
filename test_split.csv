@@ -1,0 +1,33 @@
+text,label,note
+The power just came back on in our building. What a relief.,reaction,AI-generated example; review
+The announcement came through: our flight is boarding now.,reaction,AI-generated example; review
+The school district's leadership is an absolute joke.,hot_take,AI-generated example; review
+"This plan will fail spectacularly, just like every other plan from this office.",hot_take,AI-generated example; review
+"The council's report lists 12,400 potholes repaired this year, up from 9,800 last year.",analysis,"pre-labelled, checked"
+"The grant notice offers up to $2,500 per neighborhood group for approved cleanup supplies.",analysis,AI-generated example; review
+This is a lousy plan dressed up with fancy words.,hot_take,AI-generated example; review
+I just heard the news that the missing cat is back home.,reaction,AI-generated example; review
+The sidewalk project notice identifies 11 intersections that will receive curb ramps this fall.,analysis,AI-generated example; review
+The council agenda schedules the transit fare vote for 7 p.m. on Tuesday in the main chamber.,analysis,AI-generated example; review
+The school board's approach is a complete failure.,hot_take,AI-generated example; review
+That proposal is so foolish it should never have made it onto the agenda.,hot_take,AI-generated example; review
+That new parking policy is just a terrible idea from start to finish.,hot_take,AI-generated example; review
+The announcement just said the road is open again—finally!,reaction,AI-generated example; review
+The latest snow-removal report says crews cleared 94% of priority routes within 8 hours of the storm.,analysis,AI-generated example; review
+The posted meeting minutes record a 5-to-2 vote approving the revised library schedule.,analysis,AI-generated example; review
+"The town's recycling page says glass collection is available at three drop-off sites, not at curbside.",analysis,AI-generated example; review
+The library's quarterly update records 760 children's books borrowed during the reading challenge week.,analysis,AI-generated example; review
+This is the laziest solution the city could possibly choose.,hot_take,AI-generated example; review
+The published schedule shows the new bus route will run every 15 minutes during rush hour.,analysis,"pre-labelled, checked"
+The recreation schedule shows the gym is reserved for youth programs on four evenings each week.,analysis,AI-generated example; review
+The planning department has made a spectacular mess of this project.,hot_take,AI-generated example; review
+Anyone defending this parking rule has clearly never driven here.,hot_take,AI-generated example; review
+I just saw the new bookmobile pull up at the community center.,reaction,AI-generated example; review
+The alert just came through that the water service is restored.,reaction,AI-generated example; review
+The council just approved the trail extension! I can't believe it.,reaction,AI-generated example; review
+That consultant's recommendation is laughably out of touch.,hot_take,AI-generated example; review
+What an absurd rule; it sounds like nobody thought it through.,hot_take,AI-generated example; review
+"The bell just rang for the end of the school day, and everyone rushed out.",reaction,AI-generated example; review
+The game just ended with a last-second goal. That was incredible.,reaction,AI-generated example; review
+"The posted service update says the permit office handled 412 applications in June, 37 fewer than in May.",analysis,AI-generated example; review
+I just noticed the new crosswalk signal working for the first time.,reaction,AI-generated example; review

@@ -42,7 +42,12 @@
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
-
+TakeMeter fine-tunes DistilBERT to sort local civic discussion posts about
+city services and government into `analysis`, `hot_take`, or `reaction`.
+`analysis` posts offer a specific, checkable fact to support an argument;
+`hot_take` posts make a confident claim without offering support; and
+`reaction` posts respond immediately to something that just happened. The
+notebook evaluates the model on separate validation and held-out test data.
 
 ---
 
@@ -54,35 +59,54 @@
      The decision rule is worth a point on its own and it's the thing most
      people leave out. Every taxonomy has a hardest boundary. Name yours. -->
 
-### `label_one`
+### `analysis`
 
-**Definition:**
-
-**Example 1:**
->
-
-**Example 2:**
->
-
-### `label_two`
-
-**Definition:**
+**Definition:** Makes an argument backed by a specific, checkable fact, such
+as a statistic, date, or quotation.
 
 **Example 1:**
->
+> "People keep saying the city is safer, but last week's crime report shows
+> robberies up 18% and calls down 6%."
 
 **Example 2:**
->
+> "The council's report lists 12,400 potholes repaired this year, up from
+> 9,800 last year."
+
+### `hot_take`
+
+**Definition:** Makes a confident claim or judgment without offering specific
+evidence to support it.
+
+**Example 1:**
+> "This is ridiculous. The council should have fixed it already."
+
+**Example 2:**
+> "They clearly have no idea how ordinary people live."
+
+### `reaction`
+
+**Definition:** Gives an immediate emotional response to something that has
+just happened, rather than making an evidence-backed argument.
+
+**Example 1:**
+> "Just saw the crash on my way home—worse than I expected."
+
+**Example 2:**
+> "I just watched the final vote pass—can't believe it actually happened."
+
+**Example provenance:** These examples are copied from `labels.csv`. The CSV
+marks them as `cold` or `pre-labelled, checked`, but those notes do not
+document where the posts were collected. I need to verify their sources before
+claiming they are real posts from my reading.
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `analysis` and `hot_take`
 
-**The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
-
-
+**The decision rule I used every time:** If a post gives a specific,
+checkable fact as support for its point, label it `analysis`, even if the tone
+is heated. If it makes a confident claim or judgment without offering that
+kind of support, label it `hot_take`.
 
 ---
 
@@ -91,45 +115,64 @@
 <!-- Where you collected from, how you labelled, your counts, and three hard
      cases. -->
 
-**Where the posts came from:**
+**Where the posts came from:** The CSV does not record a public community or
+source URL. Of its 209 rows, 200 are marked `AI-generated example; review`,
+so these are generated civic-post examples, not verified posts collected
+from a public community. I cannot claim that this dataset meets the public
+post collection requirement.
 
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**How I labelled them:** The `note` column marks 2 rows `cold`, 7
+`pre-labelled, checked`, and 200 `AI-generated example; review`. The CSV
+does not establish that all generated examples were individually reviewed
+and corrected. I should verify and document the source and review status
+before treating this as a collected, human-checked post dataset.
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `analysis` | 70 | 33.49% |
+| `hot_take` | 70 | 33.49% |
+| `reaction` | 69 | 33.01% |
+| **Total** | **209** | **100%** |
 
 **Three hard cases**
 
 <!-- Any post that made you pause: what it was, which two labels it could have
      been, and what you chose. These are worth more than the easy 190. -->
 
+I did not record these contemporaneously while labeling. The following are
+three borderline cases identified in a later review of the CSV, not claims
+about what I paused over at the time. The CSV marks each as an AI-generated
+example, so they are useful for checking the taxonomy but are not verified
+community posts.
+
 **1.**
-> *The post:*
+> *The post:* "People keep saying the city is safer, but last week's crime
+> report shows robberies up 18% and calls down 6%."
 >
-> *Could have been:*
+> *Could have been:* `analysis` or `hot_take`
 >
-> *I chose, because:*
+> *I chose, because:* `analysis` — it makes a point about safety and backs it
+> with specific, checkable figures from a crime report.
 
 **2.**
-> *The post:*
+> *The post:* "This is ridiculous. The council should have fixed it already."
 >
-> *Could have been:*
+> *Could have been:* `hot_take` or `reaction`
 >
-> *I chose, because:*
+> *I chose, because:* `hot_take` — it makes a confident judgment, but it
+> does not identify a just-happened event or offer evidence for the claim.
 
 **3.**
-> *The post:*
+> *The post:* "The announcement just came through: the community pool opens
+> tomorrow!"
 >
-> *Could have been:*
+> *Could have been:* `reaction` or `analysis`
 >
-> *I chose, because:*
+> *I chose, because:* `reaction` — although it states a checkable fact, it
+> gives no argument supported by that fact; its main purpose is to respond
+> with excitement to a new announcement.
 
 ---
 
@@ -162,17 +205,32 @@ of next unit's variance. -->
 
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I asked AI to explain the label-mapping, metric, and
+  training code in the notebook.
+- *What came back:* It explained how text labels become numeric IDs, how
+  accuracy and macro-F1 are calculated, and how the Trainer fine-tunes and
+  evaluates the model.
+- *What I changed:* I used the explanation to understand the existing code;
+  I did not change the training logic based on that explanation.
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* After training failed with an `accelerate>=1.1.0`
+  ImportError, I asked AI what the error meant and how to resolve it.
+- *What came back:* It identified the missing dependency and recommended
+  installing `accelerate` in the notebook's Python environment, then
+  restarting the kernel.
+- *What I changed:* I added `"accelerate>=1.1.0"` to the notebook's
+  `%pip install` line, installed it, restarted the kernel, and reran training.
 
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:** The `labels.csv` file contains AI-generated
+civic-post examples with candidate labels; these rows are marked
+`AI-generated example; review`. They are generated examples, not verified
+posts collected from a public community. The notes indicate they still need
+review, so I am not claiming that every generated post and label has been
+independently checked and corrected. They should not be presented as a
+public-post dataset until I replace them with eligible public posts or
+complete and accurately document an approved alternative.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
@@ -188,20 +246,29 @@ of next unit's variance. -->
 
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.688 | 1.000 | +0.312 |
+| Macro F1 | 0.594 | 1.000 | +0.406 |
+| F1 — `analysis` | 0.815 | 1.000 | +0.185 |
+| F1 — `hot_take` | 0.167 | 1.000 | +0.833 |
+| F1 — `reaction` | 0.800 | 1.000 | +0.200 |
 
 **What I predicted before I looked:**
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
      prediction made afterwards isn't one. -->
 
+I did not record a prediction before viewing the trained results, so I cannot
+honestly provide a pre-result prediction here.
+
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
      nothing — and that is a real finding, not a failure. Say it plainly. -->
 
-
+On this 32-post held-out set, the fine-tuned classifier scored higher on every
+reported measure than the zero-shot baseline. The largest per-label gain was
+for `hot_take`: its F1 rose from 0.167 to 1.000; the baseline found very few
+of the actual `hot_take` posts. This is a result from one run and a small test
+set, and most dataset rows are AI-generated examples, so it is not evidence
+yet that the model will perform this well on real public posts.
 
 ---
 

@@ -10,14 +10,6 @@ An acceptance criterion names a number. *"The model is accurate"* is an
 opinion. *"Every label has an F1 of at least 0.60 on the held-out set"* is a
 criterion.
 
-Under each, write a sentence or two on **why that number**. A reason that says
-something about your data or your taxonomy earns credit — *"I picked 0.60 F1
-for `reaction` because it's my smallest label and I only have about 50
-examples of it"*. A reason that could be attached to any project does not.
-
-> Missing your own targets next unit costs you nothing. Setting a target so
-> easy you can't miss it does.
-
 ---
 
 ## Pick numbers you can defend
@@ -49,65 +41,95 @@ whether you hit them:
   three.** A target of 0.65 against results of 0.71, 0.62, 0.68 is a **miss**.
   Pick with that in mind — it is stricter than it first sounds.
 
+## How F1 and macro-F1 are calculated
+
+For one label, count the following on the held-out set:
+
+- **True positives (TP):** posts whose true label is this label and that the
+  model correctly predicts as this label.
+- **False positives (FP):** posts whose true label is something else but that
+  the model predicts as this label.
+- **False negatives (FN):** posts whose true label is this label but that the
+  model predicts as something else.
+
+First calculate precision and recall for that label:
+
+```text
+precision = TP / (TP + FP)
+recall    = TP / (TP + FN)
+```
+
+Precision answers, “Of the posts predicted as this label, how many really
+belong to it?” Recall answers, “Of the posts that really belong to this label,
+how many did the model find?”
+
+The label's F1 score is the harmonic mean of its precision and recall:
+
+```text
+F1 = 2 × (precision × recall) / (precision + recall)
+```
+
+Equivalently, when the denominator is nonzero:
+
+```text
+F1 = 2 × TP / (2 × TP + FP + FN)
+```
+
+F1 ranges from 0 to 1. It is high only when both precision and recall are
+high. If there are no predicted or actual examples for a label, the score
+implementation must define how to handle the zero denominator; this project's
+metric code uses `zero_division=0`.
+
+For this three-label classifier, calculate one F1 score for each label, then
+take their unweighted arithmetic mean:
+
+```text
+macro-F1 = (F1_analysis + F1_hot_take + F1_reaction) / 3
+```
+
+“Unweighted” means each label contributes equally, regardless of how many
+examples it has. Macro-F1 can therefore reveal weak performance on a smaller
+label that overall accuracy might obscure.
+
 ---
 
 ## 1.
 
-<!-- Your criterion. It must name a number. -->
+The model achieves at least **0.60 accuracy** on the held-out set for each of the three seeds.
 
-
-
-**Why this target:**
-
-
+**Why this target:** With three labels, random guessing would achieve about 0.33 accuracy. A 0.60 target sets a higher bar while recognizing that these categories can be difficult to distinguish.
 
 ---
 
 ## 2.
 
-<!-- Your criterion. -->
+The model achieves a **macro-F1 of at least 0.60** on the held-out set for each of the three seeds.
 
-
-
-**Why this target:**
-
-
+**Why this target:** Macro-F1 weighs `analysis`, `hot_take`, and `reaction` equally, so strong results on one label cannot hide weak performance on another.
 
 ---
 
 ## 3.
 
-<!-- Your criterion. -->
+Each label has an **F1 score of at least 0.50** on the held-out set for each of the three seeds.
 
-
-
-**Why this target:**
-
-
+**Why this target:** The held-out set contains relatively few examples per label, so individual scores may vary. The 0.50 minimum still requires useful performance for every label.
 
 ---
 
 ## 4.
 
-<!-- Your criterion. -->
+On a sample of 30 posts labeled independently by a second person, my labels agree with theirs on at least **24 posts (80%)**.
 
-
-
-**Why this target:**
-
-
+**Why this target:** The categories distinguish evidence-backed arguments, unsupported claims, and immediate reactions. Agreement on 80% of a sample would indicate that the definitions are clear enough to apply consistently.
 
 ---
 
 ## 5.
 
-<!-- Your criterion. -->
+The difference between the highest and lowest held-out accuracy across the three seeds is no more than **0.10**.
 
-
-
-**Why this target:**
-
-
+**Why this target:** I want the model's performance to be reasonably stable across runs, rather than depending on one particularly favorable random seed.
 
 ---
 

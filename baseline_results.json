@@ -1,0 +1,194 @@
+{
+  "model": "facebook/bart-large-mnli",
+  "n": 32,
+  "seed": 42,
+  "held_out": true,
+  "used_definitions": true,
+  "scores": {
+    "n": 32,
+    "accuracy": 0.6875,
+    "f1_macro": 0.5938271604938271,
+    "per_label": {
+      "analysis": {
+        "precision": 0.6875,
+        "recall": 1.0,
+        "f1": 0.8148148148148148,
+        "support": 11
+      },
+      "hot_take": {
+        "precision": 1.0,
+        "recall": 0.09090909090909091,
+        "f1": 0.16666666666666669,
+        "support": 11
+      },
+      "reaction": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1": 0.8,
+        "support": 10
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "The power just came back on in our building. What a relief.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "The announcement came through: our flight is boarding now.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "The school district's leadership is an absolute joke.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "This plan will fail spectacularly, just like every other plan from this office.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The council's report lists 12,400 potholes repaired this year, up from 9,800 last year.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The grant notice offers up to $2,500 per neighborhood group for approved cleanup supplies.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "This is a lousy plan dressed up with fancy words.",
+      "gold": "hot_take",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "I just heard the news that the missing cat is back home.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "The sidewalk project notice identifies 11 intersections that will receive curb ramps this fall.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The council agenda schedules the transit fare vote for 7 p.m. on Tuesday in the main chamber.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The school board's approach is a complete failure.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "That proposal is so foolish it should never have made it onto the agenda.",
+      "gold": "hot_take",
+      "predicted": "reaction"
+    },
+    {
+      "text": "That new parking policy is just a terrible idea from start to finish.",
+      "gold": "hot_take",
+      "predicted": "reaction"
+    },
+    {
+      "text": "The announcement just said the road is open again\u2014finally!",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "The latest snow-removal report says crews cleared 94% of priority routes within 8 hours of the storm.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The posted meeting minutes record a 5-to-2 vote approving the revised library schedule.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The town's recycling page says glass collection is available at three drop-off sites, not at curbside.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The library's quarterly update records 760 children's books borrowed during the reading challenge week.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "This is the laziest solution the city could possibly choose.",
+      "gold": "hot_take",
+      "predicted": "reaction"
+    },
+    {
+      "text": "The published schedule shows the new bus route will run every 15 minutes during rush hour.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The recreation schedule shows the gym is reserved for youth programs on four evenings each week.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The planning department has made a spectacular mess of this project.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Anyone defending this parking rule has clearly never driven here.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "I just saw the new bookmobile pull up at the community center.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "The alert just came through that the water service is restored.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "The council just approved the trail extension! I can't believe it.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "That consultant's recommendation is laughably out of touch.",
+      "gold": "hot_take",
+      "predicted": "reaction"
+    },
+    {
+      "text": "What an absurd rule; it sounds like nobody thought it through.",
+      "gold": "hot_take",
+      "predicted": "reaction"
+    },
+    {
+      "text": "The bell just rang for the end of the school day, and everyone rushed out.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "The game just ended with a last-second goal. That was incredible.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    },
+    {
+      "text": "The posted service update says the permit office handled 412 applications in June, 37 fewer than in May.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "I just noticed the new crosswalk signal working for the first time.",
+      "gold": "reaction",
+      "predicted": "reaction"
+    }
+  ]
+}
