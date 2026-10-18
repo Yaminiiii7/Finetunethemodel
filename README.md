@@ -1,16 +1,8 @@
 # TakeMeter
 
-> ### 👋 Start here
->
-> **New to this repo? Read [RUNNING.md](RUNNING.md) first** — setup, the
-> notebook, the baseline, and what to do when something breaks.
->
+
 > Once `python test.py` passes:
->
-> ```bash
-> head -5 data/practice_labels.csv     # the shape your labels.csv needs
-> ```
->
+
 > Then open `takemeter.ipynb` **in this folder** — in VS Code, or with
 > `jupyter notebook` if you prefer. Pick the kernel: the `.venv` inside this
 > project. Run section 1, which reports the hardware you'll be training on.
@@ -19,23 +11,9 @@
 > Nothing to upload, nothing to connect, no accounts and no keys. The notebook
 > runs on your machine and writes next to your code.
 >
-> **The rest of this file is your submission.** Fill it in as you go.
 
 ---
 
-<!-- ─────────────────────────────────────────────────────────────────────────
-     HOW TO USE THIS FILE
-
-     Unit 5 asks for the first five sections. Unit 6 adds the five below them.
-
-     Everything is pasted as TEXT. No screenshots, no images.
-
-     ⚠️ The confusion matrix especially. The notebook prints one as a markdown
-     table, ready to copy. A screenshot of a matrix earns nothing. Paste the
-     table.
-     ───────────────────────────────────────────────────────────────────────── -->
-
-<!-- ═══════════════════════ UNIT 5 — THE BUILD ═══════════════════════ -->
 
 ## What This Does
 
