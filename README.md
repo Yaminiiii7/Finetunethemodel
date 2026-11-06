@@ -258,22 +258,38 @@ yet that the model will perform this well on real public posts.
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Held-out accuracy | ≥ 0.60 every seed | 1.00 | 1.00 | 1.00 | MET |
+| 2. Macro-F1 | ≥ 0.60 every seed | 1.00 | 1.00 | 1.00 | MET |
+| 3. Lowest per-label F1 | ≥ 0.50 every seed | 1.00 | 1.00 | 1.00 | MET |
+| 4. Agreement with a second labeller (staff set) | ≥ 24/30 (80%) | 30/30 | 30/30 | 30/30 | MET |
+| 5. Accuracy spread across seeds (max − min) | ≤ 0.10 | 1.00 | 1.00 | 1.00 | MET (spread 0.00) |
+
+Criterion 4 doesn't depend on the seed. It is one agreement check
+(`agreement_results.json`), repeated in each column. Test split: 32 posts
+(11 `analysis`, 11 `hot_take`, 10 `reaction`).
+
+The notebook's spread table, per measure:
+
+| Measure | Seed 42 | Seed 7 | Seed 2024 | Spread |
+|---|---|---|---|---|
+| Overall accuracy | 1.000 | 1.000 | 1.000 | 0.000 |
+| Macro F1 | 1.000 | 1.000 | 1.000 | 0.000 |
+| F1 — `analysis` | 1.000 | 1.000 | 1.000 | 0.000 |
+| F1 — `hot_take` | 1.000 | 1.000 | 1.000 | 0.000 |
+| F1 — `reaction` | 1.000 | 1.000 | 1.000 | 0.000 |
+
+Accuracy moved 0.000 across seeds. Stable enough to trust.
 
 ### Confusion matrix
 
 <!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
      An image of a matrix earns nothing. -->
 
-| true \ predicted |  |  |  |
+| true \ predicted | analysis | hot_take | reaction |
 |---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+| **analysis** | 11 | 0 | 0 |
+| **hot_take** | 0 | 11 | 0 |
+| **reaction** | 0 | 0 | 10 |
 
 **My biggest off-diagonal number, and what it means:**
 <!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
@@ -291,11 +307,11 @@ yet that the model will perform this well on real public posts.
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Held-out accuracy | ≥ 0.60 on each seed | MET | 1.00 on seeds 42, 7 and 2024; lowest is 1.00 |
+| 2 | Macro-F1 | ≥ 0.60 on each seed | MET | 1.00 on all three seeds |
+| 3 | Every label's F1 | ≥ 0.50 on each seed | MET | `analysis`, `hot_take`, `reaction` all 1.00 on all three seeds |
+| 4 | Agreement with a second labeller | ≥ 24/30 | MET | 30/30 against `data/staff_labels.csv` (`agreement_results.json`). The 30 labels in `my_staff_labels.csv` were produced by Claude Code applying `data/staff_taxonomy.md`, not by me by hand |
+| 5 | Accuracy stability | max − min ≤ 0.10 | MET | 1.00 − 1.00 = 0.00 |
 
 **Diagnoses**
 
@@ -368,24 +384,47 @@ yet that the model will perform this well on real public posts.
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** Nothing. I kept the same data, settings, and seeds
+(42, 7, 2024). `results_three_seeds_after.json` is a re-run of section 6
+with `RUN_LABEL = "after"` and no change. Its numbers, down to the mean
+confidence, match `results_three_seeds_before.json` exactly.
 
-**Which diagnosis pointed at it:**
+**Which diagnosis pointed at it:** None. No diagnosis pointed at a change,
+and that is why I made none. Each of the three options needs a diagnosed
+miss to aim at, and I had none:
+
+- *Relabel one boundary* — the agreement check found 0 disagreements out of
+  30, so there was no boundary I had applied two ways.
+- *Add examples to the thinnest label* — every label scored F1 1.00 on every
+  seed, so there was no worst label. `reaction` has the fewest rows (69, against
+  70 and 70), but that is not a performance gap.
+- *Change a training setting* — nothing in the results points at training.
+
+With every criterion already at 1.00, any change could only hold the numbers
+or lower them. Making a change just to have one would not have tested a
+diagnosis.
 
 ### Run Log — After
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Held-out accuracy | ≥ 0.60 every seed | 1.00 | 1.00 | 1.00 | MET |
+| 2. Macro-F1 | ≥ 0.60 every seed | 1.00 | 1.00 | 1.00 | MET |
+| 3. Lowest per-label F1 | ≥ 0.50 every seed | 1.00 | 1.00 | 1.00 | MET |
+| 4. Agreement with a second labeller (staff set) | ≥ 24/30 (80%) | 30/30 | 30/30 | 30/30 | MET |
+| 5. Accuracy spread across seeds (max − min) | ≤ 0.10 | 1.00 | 1.00 | 1.00 | MET (spread 0.00) |
 
-**Did it help, and how do I know:**
+**Did it help, and how do I know:** No. Nothing changed, so there was nothing
+to help. The before and after logs are identical, and so are the two JSON
+files.
 
-<!-- If it didn't, say so. Relabelling that didn't help is a genuinely
-     interesting result and earns full credit. -->
+The run log can't measure the real weakness. All 200 training posts are
+AI-generated, and the 32-post test split comes from the same source. A perfect
+score may mean the posts are formulaic: the zero-shot baseline already reached
+0.69, and the model's mean confidence was only about 0.50 even when it was
+right. The improvement I would make next is to test on real public posts,
+especially borderline `reaction`/`hot_take` ones. That changes the test set,
+not the model, so it falls outside this unit's one-change rule.
 
 
 
