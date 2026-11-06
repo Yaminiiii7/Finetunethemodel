@@ -201,6 +201,22 @@ of next unit's variance. -->
 - *What I changed:* I added `"accelerate>=1.1.0"` to the notebook's
   `%pip install` line, installed it, restarted the kernel, and reran training.
 
+**Moment 3 (unit 6)**
+
+- *What I asked for:* I asked Claude Code to label the 30 staff-set posts
+  under `data/staff_taxonomy.md`, run `agreement.py`, and fill in the run logs,
+  verdicts and write-up sections of this README from the results files.
+- *What came back:* 30 labels (30/30 agreement with staff) and filled
+  tables. It also pointed out patterns in the results that I had not
+  raised: the perfect scores alongside a mean confidence of about 0.50, the
+  0.69 zero-shot baseline as a sign of an easy test set, and that
+  `results_three_seeds_after.json` matched the before file exactly. It also
+  noted that its own labelling meant criterion 4 did not measure me.
+- *What I changed:* I chose to make no improvement change and document why,
+  rather than add AI-written posts or change a training setting with no
+  diagnosis behind it. I kept the disclosure that the staff-set labels were
+  AI-made in criterion 4 and the Agreement Report.
+
 **Pre-labelling disclosure:** The `labels.csv` file contains AI-generated
 civic-post examples with candidate labels; these rows are marked
 `AI-generated example; review`. They are generated examples, not verified
@@ -296,7 +312,11 @@ Accuracy moved 0.000 across seeds. Stable enough to trust.
      direction. "7 real analysis posts were called hot_take and only 3 went the
      other way" is a direction, not just an error rate. -->
 
-
+0. Every off-diagonal cell is 0 on all three seeds, so on this test split the
+model confused no pair of labels, in either direction. That does not show the
+`analysis`/`hot_take` boundary is learned. The test posts come from the same
+AI-generated source as the training posts, so they may not contain any truly
+borderline cases to get wrong.
 
 ---
 
@@ -324,7 +344,23 @@ Accuracy moved 0.000 across seeds. Stable enough to trust.
      have that can tell a LABELLING problem from a MODEL problem, and this
      section is graded on whether you used it that way. -->
 
+No criterion was missed, so there is no miss to diagnose. The agreement report
+is still evidence. With 0 disagreements against staff, it gives no sign of a
+labelling-consistency problem. But the result doesn't rule one out for my own
+200, because the 30 staff-set labels were produced by Claude Code, not by me
+(see criterion 4). What the evidence does point to is a measurement problem,
+not a model problem:
 
+- The baseline already reached 0.69 accuracy with no training, so the test
+  posts are fairly easy to separate.
+- The model's mean confidence was only 0.47–0.52 even when it was right. A
+  model that had learned the boundaries well would usually be more certain.
+- All 200 posts are AI-generated, so the train and test posts probably share
+  wording patterns (for example, `analysis` posts nearly always contain a
+  number).
+
+So "1.00 on every criterion" means the model separates *these* posts. It
+doesn't yet show the model would separate real forum posts.
 
 ---
 
@@ -336,7 +372,12 @@ Accuracy moved 0.000 across seeds. Stable enough to trust.
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
+**Agreement rate:** 30 / 30 = 100%
+
+The 30 labels in `my_staff_labels.csv` were produced by Claude Code applying
+`data/staff_taxonomy.md`, before the staff labels were opened. I did not label
+them by hand, so this rate measures how well that labeller applied the staff
+rules, not how well I did.
 
 <!-- Nobody grades this number. A 60% who argues every disagreement from the
      stated rules beats a 95% who wrote "staff was right" nine times. Several
@@ -358,26 +399,17 @@ Accuracy moved 0.000 across seeds. Stable enough to trust.
      written rule two different ways on 30 posts, that is direct evidence about
      what you did across your own 200. -->
 
-**1.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
+None. `agreement.py` reported 0 disagreements, so all three piles are empty.
+Staff flagged 7 posts as borderline (sp_005, sp_010, sp_014, sp_019, sp_020,
+sp_028, sp_029), and the labels matched on all 7. Each was settled by rule 1
+(is the fact load-bearing?) or rule 2 (a claim about the world, or a report
+about the writer?). The rule-4 tie-break was never needed.
 
-**2.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
-
-**What the pattern in my disagreements tells me:**
-
+**What the pattern in my disagreements tells me:** There is no pattern to read,
+because there were no disagreements. The rules are tight enough that a careful
+reading reproduces staff's labels exactly. Because I did not do the labelling
+myself, the result says nothing direct about how consistently I applied my own
+boundary across my 200 posts.
 
 
 ---
@@ -434,12 +466,30 @@ not the model, so it falls outside this unit's one-change rule.
 
 <!-- For each criterion still missed: what you'd do, and why you stopped. -->
 
+No criterion is still missed. All five are MET in both run logs. What is still
+broken is what the criteria can measure, not a criterion:
 
+- **The test set can't show failure.** What I'd do: label 30–50 real public
+  posts myself, weighted toward `analysis`/`hot_take` and `reaction`/`hot_take`
+  borderline cases, and use them as a second held-out set. Why I stopped: that
+  changes the test set rather than the model, so it falls outside this unit's
+  one-change rule, and the posts would need to be collected and labelled by
+  hand.
+- **Criterion 4 isn't measured on my own labelling.** What I'd do: label the
+  30 staff posts myself, blind, and re-run `agreement.py`. Why I stopped:
+  I chose to submit with an AI-made staff-set labelling and disclose it,
+  rather than redo it.
 
 **The gap between what I meant my labels to capture and what the model
 learned:**
 <!-- Two sentences. Your confusion matrix is the evidence. -->
 
+I meant `analysis` to mean "a checkable fact that carries the argument" and
+`hot_take` to mean "a confident claim with no support". The confusion matrix
+has zero off-diagonal cells, so it cannot show whether the model learned that
+distinction or a simpler shortcut such as "contains a number". Its mean
+confidence of about 0.50, even on correct answers, suggests the boundary is
+less settled than a perfect matrix makes it look.
 
 
 <!-- ═════════════════════════════════════════════════════════════════════
